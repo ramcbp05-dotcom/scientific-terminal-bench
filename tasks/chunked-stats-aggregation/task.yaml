@@ -1,0 +1,10 @@
+id: chunked-stats-aggregation
+title: Parallel chunk statistics merged with an unweighted mean
+difficulty: medium
+tags: [python, numpy, parallel-aggregation, statistics]
+timeout_sec: 120
+summary: >
+  Worker processes emit (count, mean, M2) per chunk. The reducer averages the
+  chunk means without weighting by count and averages the chunk variances,
+  dropping the between-chunk term entirely. Implement the standard pairwise
+  merge so the result matches a single-pass computation over all the data.

@@ -1,0 +1,9 @@
+id: fix-nan-propagation
+title: Sensor summary reports NaN for every statistic
+difficulty: easy
+tags: [python, numpy, data-cleaning, missing-data]
+timeout_sec: 120
+summary: >
+  A thermocouple log mixes real NaNs with a -999.0 "no reading" sentinel.
+  The summary script propagates them into every statistic. Repair the
+  missing-data handling and report how many samples survived.

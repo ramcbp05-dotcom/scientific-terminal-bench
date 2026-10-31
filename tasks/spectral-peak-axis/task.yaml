@@ -1,0 +1,10 @@
+id: spectral-peak-axis
+title: Dominant frequency reported in bin indices, amplitude unnormalised
+difficulty: medium
+tags: [python, numpy, fft, signal-processing]
+timeout_sec: 120
+summary: >
+  A peak finder returns the FFT bin index as if it were a frequency in hertz,
+  searches the two-sided spectrum so it can land in the negative-frequency
+  half, keeps the DC bin as a candidate, and never applies the 2/N single-sided
+  amplitude normalisation.

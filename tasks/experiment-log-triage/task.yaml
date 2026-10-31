@@ -1,0 +1,10 @@
+id: experiment-log-triage
+title: Experiment log summary counts retries as runs and averages failures in
+difficulty: easy
+tags: [python, log-parsing, aggregation, cli]
+timeout_sec: 120
+summary: >
+  A sweep log written by three generations of launcher scripts is summarised by
+  counting lines instead of unique runs, matching status case-sensitively,
+  keeping the first record of a retried run instead of the last, and folding
+  failed runs into the mean runtime.

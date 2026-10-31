@@ -1,0 +1,16 @@
+[OK ] catastrophic-cancellation        hardcode  fail   0.54s  seed=2079186803
+[OK ] chunked-stats-aggregation        hardcode  fail   0.49s  seed=1777924033
+[OK ] dataset-unit-harmonization       hardcode  fail   0.30s  seed=1828420264
+[OK ] energy-conserving-orbit          hardcode  fail   0.79s  seed=64007463
+[OK ] experiment-log-triage            hardcode  fail   0.35s  seed=1669984654
+[OK ] fix-nan-propagation              hardcode  fail   0.25s  seed=1883848637
+[OK ] least-squares-shape-bug          hardcode  fail   0.44s  seed=791495297
+[OK ] monte-carlo-error-bars           hardcode  fail   3.22s  seed=209285101
+[OK ] reproducible-experiment-env      hardcode  fail   0.82s  seed=1428069842
+[OK ] spectral-peak-axis               hardcode  fail   0.56s  seed=178545266
+[OK ] spectrum-normalization           hardcode  fail   0.56s  seed=1250435710
+[OK ] stable-ode-integrator            hardcode  fail   0.52s  seed=491939745
+[OK ] timeseries-resampling            hardcode  fail   0.50s  seed=650558059
+
+0/13 verifier passes, 13/13 calibrated as expected
+report written to results/hardcode-run.json

@@ -1,0 +1,10 @@
+id: spectrum-normalization
+title: Spectrum normalised by peak height instead of integrated area
+difficulty: medium
+tags: [python, numpy, spectroscopy, numerical-integration]
+timeout_sec: 120
+summary: >
+  A spectrum pipeline subtracts a baseline estimated from the mean of the whole
+  trace (which the peak itself biases upward), skips the negative clip, and then
+  divides by the peak height rather than the integrated area, so areas are not
+  comparable between spectra.

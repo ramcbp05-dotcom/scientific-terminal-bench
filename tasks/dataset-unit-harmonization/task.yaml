@@ -1,0 +1,10 @@
+id: dataset-unit-harmonization
+title: Mixed-unit measurement table converts to the wrong SI values
+difficulty: medium
+tags: [python, units, dimensional-analysis, data-cleaning]
+timeout_sec: 120
+summary: >
+  An instrument export mixes Fahrenheit with Celsius, psi with kilopascal and
+  inches with metres. The conversion table applies a pure scale factor to every
+  unit, which silently destroys the affine temperature conversions and uses two
+  wrong factors. Harmonise the table to SI base units.

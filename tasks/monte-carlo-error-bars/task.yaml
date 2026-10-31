@@ -1,0 +1,10 @@
+id: monte-carlo-error-bars
+title: Monte Carlo error bar shrinks like 1/N instead of 1/sqrt(N)
+difficulty: medium
+tags: [python, monte-carlo, statistics, error-analysis]
+timeout_sec: 180
+summary: >
+  A Monte Carlo estimator divides the sample standard deviation by N rather
+  than sqrt(N), forgets the Jacobian factor that carries the hit-rate error
+  into the estimate of pi, and builds a one-sigma interval while calling it 95%.
+  The reported error bars are optimistic by orders of magnitude.

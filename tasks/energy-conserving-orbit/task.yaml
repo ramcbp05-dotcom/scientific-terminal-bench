@@ -1,0 +1,10 @@
+id: energy-conserving-orbit
+title: Two-body orbit spirals outward because the integrator is not symplectic
+difficulty: hard
+tags: [python, numerical-methods, symplectic, orbital-mechanics, conservation-laws]
+timeout_sec: 300
+summary: >
+  A Kepler two-body propagator uses explicit Euler, which pumps energy into the
+  orbit: over ten revolutions the apoapsis grows by 13 percent and angular
+  momentum drifts by 4 percent. Replace it with a symplectic scheme so the
+  conserved quantities stay conserved.

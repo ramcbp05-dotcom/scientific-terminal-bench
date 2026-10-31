@@ -1,0 +1,72 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  integrity:
+    name: task-collection integrity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      - name: Validate every task directory
+        run: python -m harness.cli validate
+      - name: Repo-level integrity tests
+        run: python -m pytest tests/ -v
+
+  calibration:
+    name: calibration sweep (${{ matrix.mode }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # Each mode is its own job so a regression names itself in the UI.
+        # "null" MUST stay quoted: bare null is the YAML null value.
+        mode: ["oracle", "null", "hardcode"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      - name: Run all tasks in ${{ matrix.mode }} mode
+        # Exits non-zero if any run is miscalibrated: an oracle that fails, or a
+        # null/hardcode run that passes.
+        run: |
+          python -m harness.cli run \
+            --mode ${{ matrix.mode }} \
+            --report results/ci-${{ matrix.mode }}.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: run-logs-${{ matrix.mode }}
+          path: |
+            runs/
+            results/ci-${{ matrix.mode }}.json
+          retention-days: 14
+
+  flakiness:
+    name: repeat sweep (fresh seeds)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      - name: Three sweeps with independent verifier seeds
+        # Verifier probe data is reseeded per run, so a tolerance that is too
+        # tight shows up here rather than in someone else's pull request.
+        run: |
+          for i in 1 2 3; do
+            echo "== sweep $i =="
+            python -m harness.cli run --mode oracle --mode null --mode hardcode \
+              --report "results/flaky-$i.json"
+          done

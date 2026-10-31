@@ -1,0 +1,10 @@
+id: stable-ode-integrator
+title: Forward Euler at a fixed step blows up on a stiff reaction term
+difficulty: hard
+tags: [python, numerical-methods, ode, stability, convergence]
+timeout_sec: 300
+summary: >
+  A reaction ODE is integrated with forward Euler at a hardcoded dt = 0.05.
+  Beyond k*dt = 2 the scheme is outside its stability region and the solution
+  oscillates and diverges. Replace it with a scheme that hits 1e-6 relative
+  accuracy across the requested stiffness range inside a step budget.

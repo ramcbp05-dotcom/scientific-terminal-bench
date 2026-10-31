@@ -1,0 +1,10 @@
+id: catastrophic-cancellation
+title: Variance goes negative on data with a large offset
+difficulty: hard
+tags: [python, floating-point, numerical-stability, statistics]
+timeout_sec: 180
+summary: >
+  The textbook one-pass variance formula subtracts two nearly equal sums of
+  order 1e17 to recover a difference of order 1e-4. In double precision that
+  leaves no correct digits and often returns a negative variance. Replace it
+  with a numerically stable algorithm.

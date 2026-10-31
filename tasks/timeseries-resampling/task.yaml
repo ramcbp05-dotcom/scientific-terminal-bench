@@ -1,0 +1,11 @@
+id: timeseries-resampling
+title: Logger trace resampled without sorting or de-duplicating first
+difficulty: medium
+tags: [python, numpy, time-series, interpolation, data-cleaning]
+timeout_sec: 150
+summary: >
+  A buffered logger emits rows out of order, repeats timestamps after a
+  reconnect, and writes NaN during sensor warm-up. The resampler interpolates
+  on the unsorted array (np.interp silently requires sorted abscissae), keeps
+  the first copy of a repeated timestamp instead of the last, and drops the
+  end point of the uniform grid.

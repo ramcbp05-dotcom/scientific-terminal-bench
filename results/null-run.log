@@ -1,0 +1,16 @@
+[OK ] catastrophic-cancellation        null      fail   0.52s  seed=1841607282
+[OK ] chunked-stats-aggregation        null      fail   0.48s  seed=594175429
+[OK ] dataset-unit-harmonization       null      fail   0.29s  seed=1223866851
+[OK ] energy-conserving-orbit          null      fail   0.77s  seed=1145409318
+[OK ] experiment-log-triage            null      fail   0.34s  seed=842907750
+[OK ] fix-nan-propagation              null      fail   0.42s  seed=998700594
+[OK ] least-squares-shape-bug          null      fail   0.43s  seed=747931755
+[OK ] monte-carlo-error-bars           null      fail   3.19s  seed=496754622
+[OK ] reproducible-experiment-env      null      fail   0.48s  seed=1198847158
+[OK ] spectral-peak-axis               null      fail   0.55s  seed=462945991
+[OK ] spectrum-normalization           null      fail   0.50s  seed=1718089509
+[OK ] stable-ode-integrator            null      fail   0.50s  seed=1839937885
+[OK ] timeseries-resampling            null      fail   0.49s  seed=248852194
+
+0/13 verifier passes, 13/13 calibrated as expected
+report written to results/null-run.json

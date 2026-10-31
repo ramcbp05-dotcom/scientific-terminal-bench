@@ -1,0 +1,10 @@
+id: reproducible-experiment-env
+title: Numerical experiment gives a different answer on every run
+difficulty: medium
+tags: [python, reproducibility, rng, provenance, cli]
+timeout_sec: 180
+summary: >
+  A toy numerical experiment draws from the global NumPy RNG with no seed and
+  picks a reference channel by iterating a set, so its output depends on
+  PYTHONHASHSEED. Make it seedable, hash-order independent, and have it record
+  enough provenance to reproduce a result months later.

@@ -1,0 +1,10 @@
+id: least-squares-shape-bug
+title: Polynomial fit crashes on a shape mismatch, then loses accuracy
+difficulty: easy
+tags: [python, numpy, linear-algebra, conditioning]
+timeout_sec: 120
+summary: >
+  A polynomial least-squares fit builds the normal equations with the operands
+  transposed, so it dies with a shape error. Repairing the shapes is not enough:
+  the normal equations square the condition number, so the fit must be moved to
+  a QR/SVD-based solver to survive badly scaled abscissae.

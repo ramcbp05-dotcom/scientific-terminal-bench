@@ -1,0 +1,16 @@
+[OK ] catastrophic-cancellation        oracle    pass   0.56s  seed=1998403656
+[OK ] chunked-stats-aggregation        oracle    pass   0.38s  seed=1355959094
+[OK ] dataset-unit-harmonization       oracle    pass   0.27s  seed=1833431154
+[OK ] energy-conserving-orbit          oracle    pass   0.94s  seed=230105158
+[OK ] experiment-log-triage            oracle    pass   0.32s  seed=495670960
+[OK ] fix-nan-propagation              oracle    pass   0.42s  seed=500328472
+[OK ] least-squares-shape-bug          oracle    pass   0.42s  seed=1190207137
+[OK ] monte-carlo-error-bars           oracle    pass   3.16s  seed=1010014308
+[OK ] reproducible-experiment-env      oracle    pass   0.90s  seed=1362552713
+[OK ] spectral-peak-axis               oracle    pass   0.85s  seed=161392379
+[OK ] spectrum-normalization           oracle    pass   0.55s  seed=922499921
+[OK ] stable-ode-integrator            oracle    pass   0.83s  seed=1921099660
+[OK ] timeseries-resampling            oracle    pass   0.47s  seed=426396483
+
+13/13 verifier passes, 13/13 calibrated as expected
+report written to results/oracle-run.json
