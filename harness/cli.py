@@ -57,24 +57,29 @@ def cmd_run(args: argparse.Namespace) -> int:
                 spec, mode=mode, backend=args.backend, seed=args.seed,
                 agent_cmd=args.agent_cmd,
             )
-            flag = "OK " if res.calibrated else "BAD"
+            flag = "ERR" if res.error else ("OK " if res.successful else "BAD")
             verdict = "pass" if res.passed else "fail"
             print(f"[{flag}] {spec.task_id:<32} {mode:<9} {verdict:<4} "
                   f"{res.duration_sec:>6.2f}s  seed={res.seed}")
-            if not res.calibrated:
-                print(f"       expected {'pass' if res.expected_pass else 'fail'}; "
-                      f"log: {res.run_dir}/run.log")
+            if not res.successful:
+                reason = res.detail if res.error else (
+                    "agent did not pass" if res.mode == "agent" else
+                    f"expected {'pass' if res.expected_pass else 'fail'}"
+                )
+                print(f"       {reason}; log: {res.run_dir}/run.log")
             results.append(res)
 
     summary = runner.summarise(results)
     print(f"\n{summary['passed']}/{summary['total']} verifier passes, "
-          f"{summary['calibrated']}/{summary['total']} calibrated as expected")
+          f"{summary['calibrated']}/{summary['calibration_total']} calibrated as expected")
+    if summary["agent_total"]:
+        print(f"{summary['agent_passed']}/{summary['agent_total']} agents passed")
     if args.report:
         report = Path(args.report)
         report.parent.mkdir(parents=True, exist_ok=True)
         report.write_text(json.dumps(summary, indent=2) + "\n")
         print(f"report written to {report}")
-    return 0 if summary["calibrated"] == summary["total"] else 1
+    return 0 if all(r.successful for r in results) else 1
 
 
 def build_parser() -> argparse.ArgumentParser:

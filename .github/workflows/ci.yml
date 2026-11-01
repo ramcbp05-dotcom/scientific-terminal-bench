@@ -70,3 +70,29 @@ jobs:
             python -m harness.cli run --mode oracle --mode null --mode hardcode \
               --report "results/flaky-$i.json"
           done
+
+  installed-cli:
+    name: installed CLI outside checkout
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install .
+      - name: Exercise installed package and bundled data
+        run: |
+          cd "$(mktemp -d)"
+          stbench list
+          stbench run -t fix-nan-propagation -m oracle -m null -m hardcode
+
+  docker-isolation:
+    name: live Docker isolation and calibration
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      - run: STB_TEST_DOCKER=1 python -m pytest tests/test_docker_integration.py -v

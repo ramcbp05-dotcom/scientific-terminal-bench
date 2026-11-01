@@ -97,11 +97,14 @@ python -m harness.cli instructions stable-ode-integrator
 
 ## Running an agent against the suite
 
-`agent` mode runs an arbitrary command inside the prepared workspace and then
-verifies whatever it left behind:
+`agent` mode requires Docker. It runs the command in a container containing
+only the task workspace and `/instruction.md`; solutions, verifier files and
+verifier seeds are unavailable during that phase. A fresh container verifies
+the submitted workspace after the agent exits. Local mode is for trusted
+oracle/null/hardcode calibration only and rejects agent commands.
 
 ```bash
-python -m harness.cli run -t fix-nan-propagation -m agent --agent-cmd 'my-agent --task .'
+python -m harness.cli run -t fix-nan-propagation -m agent --backend docker --agent-cmd 'my-agent --task .'
 ```
 
 The workspace contains only `environment/`: the instructions, the reference
@@ -122,7 +125,7 @@ harness/
   stb_verify.py   helpers verifiers import (workspace, per-run seed, subprocess)
   cli.py          list / validate / instructions / run
 tasks/<task-id>/  one self-contained task; see docs/task-format.md
-tests/            repo-level integrity tests (108 of them)
+tests/            repo-level integrity tests (117 checks, plus 5 live Docker checks)
 scripts/          calibration sweep and single-task helpers
 results/          captured sweep output and the failure analysis
 docs/             task format, difficulty calibration
@@ -135,7 +138,7 @@ dependencies, and that no assertion in any verifier fires without an
 explanatory message.
 
 ```bash
-python -m pytest tests/ -q      # 108 passed
+python -m pytest tests/ -q      # 117 passed; 5 Docker checks require STB_TEST_DOCKER=1
 ```
 
 ## Reading the results
@@ -167,3 +170,16 @@ agent-visible instruction file, and a hidden verifier. The additions are the
 ## License
 
 MIT: see [LICENSE](LICENSE).
+
+## Installed command
+
+Run `pip install .` from the checkout to install `stbench`.
+The wheel includes the benchmark inputs; the command also works outside the
+checkout. Run outputs are written to the current directory or the requested
+report path.
+
+Agent results have no expected calibration outcome (`expected_pass` and
+`calibrated` are null). A successful agent exits 0; a failed agent or execution
+error exits nonzero. Collection, build and timeout errors never count as
+successful negative calibration. The agent command must be available inside
+the task image or workspace; host executables are not mounted automatically.
